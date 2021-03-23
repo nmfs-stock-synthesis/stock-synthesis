@@ -1056,6 +1056,7 @@ FUNCTION void get_natmort()
 //  this code uses the length maturity parameters for females, and the ave_size for the current sex in the current season
 //                if(natM_5_opt<=2){   //  uses the SS maturity parameters, which could be in terms of length or age
 //                mat_len(GPat) =        1./(1. + mfexp(wtlen_p(GPat,4)*(len_bins_m(1,nlength)-wtlen_p(GPat,3))));
+                  XX_mature.initialize();
                   XX_mature(First_Mature_Age,nages) = 1./(1. + mfexp(Maunder_beta*(Ave_Size(t,mid_subseas,g)(First_Mature_Age,nages)-Maunder_L50)));
 //                }
 
@@ -1069,12 +1070,14 @@ FUNCTION void get_natmort()
         	    	}
         	    	if(do_once==1)
         	    		{
-                    echoinput<<" seas "<<s<<" juv "<<Maunder_Mjuv<<" mat "<<Maunder_Mmat<<" lambda "<<Maunder_lambda<<endl;
-                    echoinput<<" L50 "<<Maunder_L50<<" beta "<<Maunder_beta<<" Lmat "<<Maunder_Lmat<<endl;
+                    echoinput<<" seas "<<s<<" sex*GP "<<gpi<<endl<<"M_juv: "<<Maunder_Mjuv<<"; M_mat: "<<Maunder_Mmat<<"; lambda: "<<Maunder_lambda<<endl;
+                    echoinput<<" L50 "<<Maunder_L50<<" beta "<<Maunder_beta<<" Len_mat "<<Maunder_Lmat<<endl;
                     echoinput<<"avesize "<<Ave_Size(t,mid_subseas,g)<<endl;
-                    echoinput<<"Age_mature: "<<XX_mature<<endl;
-        	      		echoinput<<" Mjuv: "<<Maunder_Mjuv*pow(Maunder_Lmat/Ave_Size(t,mid_subseas,g),Maunder_lambda)<<endl;
-        	      		echoinput<<" Mmat: "<<(Maunder_Mmat-Maunder_Mjuv)*XX_mature<< endl;
+                    echoinput<<"Lmat/avesize "<<Maunder_Lmat/Ave_Size(t,mid_subseas,g)<<endl;
+                    echoinput<<"Age_mature_for_Maunder_M: "<<XX_mature<<endl;
+        	      		echoinput<<" natM_juv: "<<Maunder_Mjuv*pow(Maunder_Lmat/Ave_Size(t,mid_subseas,g),Maunder_lambda)<<endl;
+        	      		echoinput<<" natM_mat: "<<(Maunder_Mmat-Maunder_Mjuv)*XX_mature<< endl;
+        	      		echoinput<<" natM_combined: "<<natM(s,gpi)<<endl;
         	    		}
         	    }
           	break;

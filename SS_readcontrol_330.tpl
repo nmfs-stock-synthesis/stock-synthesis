@@ -989,7 +989,7 @@
         case 5:  //  new age and maturity specific by Mark Maunder
         {
           ParCount++;
-          ParmLabel+="NatM_Mjuv_"+GenderLbl(gg)+GP_Lbl(gp);
+          ParmLabel+="NatM_juv_"+GenderLbl(gg)+GP_Lbl(gp);
           Parm_info+="val";
           Parm_minmax.push_back (3);
           ParCount++;
@@ -997,11 +997,11 @@
           Parm_info+="val";
           Parm_minmax.push_back (3);
           ParCount++;
-          ParmLabel+="NatM_Lmat_"+GenderLbl(gg)+GP_Lbl(gp);
+          ParmLabel+="NatM_infl_"+GenderLbl(gg)+GP_Lbl(gp);
           Parm_info+="val";
           Parm_minmax.push_back (3);
           ParCount++;
-          ParmLabel+="NatM_Mmat_"+GenderLbl(gg)+GP_Lbl(gp);
+          ParmLabel+="NatM_mature_"+GenderLbl(gg)+GP_Lbl(gp);
           Parm_info+="val";
           Parm_minmax.push_back (3);
           if(natM_5_opt==3)

@@ -1378,7 +1378,7 @@ FUNCTION void write_nucontrol()
          <<"#_DevLinks(more):  21-25 keep last dev for rest of years"<<endl<<"#"<<endl;
   report4<<"#_Prior_codes:  0=none; 6=normal; 1=symmetric beta; 2=CASAL's beta; 3=lognormal; 4=lognormal with biascorr; 5=gamma"<<endl;
   report4<<"#"<<endl<<"# setup for M, growth, wt-len, maturity, fecundity, (hermaphro), recr_distr, cohort_grow, (movement), (age error), (catch_mult), sex ratio "<<endl;
-  report4<<"#"<<endl<<natM_type<<" #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate"<<endl;
+  report4<<"#_NATMORT"<<endl<<natM_type<<" #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate;_5=Maunder_link_to_maturity"<<endl;
     if(natM_type==0)
     {report4<<"  #_no additional input for selected M option; read 1P per morph"<<endl;}
     else if(natM_type==1)
@@ -1388,10 +1388,9 @@ FUNCTION void write_nucontrol()
     else if(natM_type>=3 && natM_type<5)
     {report4<<" #_Age_natmort_by sex x growthpattern (nest GP in sex)"<<endl<<Age_NatMort<<endl;}
     else
-    {report4<<"  #_Maunder_M: suboptions 1, 2, 3"<<endl;
-    	report4<<natM_5_opt<<"  #_Maunder_M_option";}
+    {report4<<natM_5_opt<<"  #_Maunder_M suboptions: 1 (4 parm per sex*GP, using age_maturity), 2 (4 parm, same), 3 (6 parm)"<<endl;}
     report4<<"#"<<endl;
-    report4<<Grow_type<<" # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation"<<endl;
+    report4<<"#_GROWTH"<<endl<<Grow_type<<" # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation"<<endl;
     if(Grow_type<=5 || Grow_type==8)
     {report4<<AFIX<<" #_Age(post-settlement)_for_L1;linear growth below this"<<endl<<
       AFIX2<<" #_Growth_Age_for_L2 (999 to use as Linf)"<<endl<<
@@ -1402,10 +1401,9 @@ FUNCTION void write_nucontrol()
     }
     else
     {report4<<" #_growth type not implemented"<<endl;}
-    report4<<"#"<<endl;
     report4<<SD_add_to_LAA<<" #_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)"<<endl;   // constant added to SD length-at-age (set to 0.1 for compatibility with SS2 V1.x
     report4<<CV_depvar<<" #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)"<<endl;
-    report4<<"#"<<endl;
+    report4<<"#"<<endl<<"#_MATURITY_FECUNDITY"<<endl;
     report4<<Maturity_Option<<" #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity"<<endl;
     if(Maturity_Option==3)
     {report4<<"#_Age_Maturity by growth pattern"<<endl<<Age_Maturity<<endl;}
@@ -1420,7 +1418,7 @@ FUNCTION void write_nucontrol()
     report4<<Fecund_Option<<" #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W"<<endl;
     report4<<Hermaphro_Option<<" #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female age-specific fxn"<<endl;
     if (Hermaphro_Option!=0) report4<<Hermaphro_seas<<" # Hermaphro_season "<<endl<<Hermaphro_maleSPB<<" # Hermaphro_maleSSB "<<endl;
-    report4<<MGparm_def<<" #_parameter_offset_approach for M, G, CV_G:  1- direct, no offset; 2- male=fem_parm*exp(male_parm); 3: male=female*exp(parm) then old=young*exp(parm)"<<endl;
+    report4<<"#"<<endl<<MGparm_def<<" #_parameter_offset_approach for M, G, CV_G:  1- direct, no offset; 2- male=fem_parm*exp(male_parm); 3: male=female*exp(parm) then old=young*exp(parm)"<<endl;
   report4<<"#"<<endl;
   report4<<"#_growth_parms";
   if(N_GP>1) report4<<";  if N_GP>1, then nest GP within sex in parameters below";
