@@ -877,10 +877,8 @@ FUNCTION void get_natmort()
       {
         if(gp>1)
         {
-          for (j=1;j<=N_natMparms;j++)
-          {
-            natMparms(j,gp)=natMparms(j,1)*mfexp(natMparms(j,gp));
-          }
+          for (j=1;j<=N_natMparms;j++) {
+            natMparms(j,gp)=natMparms(j,1)*mfexp(natMparms(j,gp));}
         }
         break;
       }
@@ -1063,20 +1061,21 @@ FUNCTION void get_natmort()
 //                  for (a=0; a<=nages;a++)
                 {
 //  original equation had:
-//  natM(s,gpi,a) = Maunder_Mjuv*pow(Ave_Size(t,ALK_idx,g,a)/Maunder_Lmat,Maunder_lambda)+(Maunder_Mmat-Maunder_Mjuv*pow(Ave_Size(t,ALK_idx,g,a)/Maunder_Lmat,Maunder_lambda))*XXmaturity_Fem(a)XX;
+//  natM(s,gpi,a) = Maunder_Mjuv*pow(Ave_Size(t,ALK_idx,g,a)/Maunder_Lmat,Maunder_lambda) +
+//                  (Maunder_Mmat-Maunder_Mjuv*pow(Ave_Size(t,ALK_idx,g,a)/Maunder_Lmat,Maunder_lambda))*XXmaturity_Fem(a)XX;
 // Maunder_Lmat was not defined
-        	    		natM(s,gpi) = Maunder_Mjuv*pow(Maunder_Lmat/Ave_Size(t,mid_subseas,g),Maunder_lambda);
-        	    		natM(s,gpi) += (Maunder_Mmat-Maunder_Mjuv)*XX_mature;
+        	    		natM(s,gpi) = Maunder_Mjuv*pow((Ave_Size(t,mid_subseas,g)/Maunder_Lmat),Maunder_lambda);
+        	    		natM(s,gpi) += elem_prod((Maunder_Mmat-natM(s,gpi)),XX_mature);
         	    	}
         	    	if(do_once==1)
         	    		{
                     echoinput<<" seas "<<s<<" sex*GP "<<gpi<<endl<<"M_juv: "<<Maunder_Mjuv<<"; M_mat: "<<Maunder_Mmat<<"; lambda: "<<Maunder_lambda<<endl;
                     echoinput<<" L50 "<<Maunder_L50<<" beta "<<Maunder_beta<<" Len_mat "<<Maunder_Lmat<<endl;
-                    echoinput<<"avesize "<<Ave_Size(t,mid_subseas,g)<<endl;
-                    echoinput<<"Lmat/avesize "<<Maunder_Lmat/Ave_Size(t,mid_subseas,g)<<endl;
                     echoinput<<"Age_mature_for_Maunder_M: "<<XX_mature<<endl;
-        	      		echoinput<<" natM_juv: "<<Maunder_Mjuv*pow(Maunder_Lmat/Ave_Size(t,mid_subseas,g),Maunder_lambda)<<endl;
-        	      		echoinput<<" natM_mat: "<<(Maunder_Mmat-Maunder_Mjuv)*XX_mature<< endl;
+                    echoinput<<"avesize "<<Ave_Size(t,mid_subseas,g)<<endl;
+                    echoinput<<"avesize/Lmat "<<Ave_Size(t,mid_subseas,g)/Maunder_Lmat<<endl;
+        	      		echoinput<<" natM_juv: "<<Maunder_Mjuv*pow((Ave_Size(t,mid_subseas,g)/Maunder_Lmat),Maunder_lambda)<<endl;
+        	      		echoinput<<" natM_mat: "<<(Maunder_Mmat)*XX_mature<< endl;
         	      		echoinput<<" natM_combined: "<<natM(s,gpi)<<endl;
         	    		}
         	    }
